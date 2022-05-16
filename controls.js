@@ -5,7 +5,7 @@ class Controls{
     this.right = false;
     this.backward = false;
 
-    this.addKeyboardListeners();
+    this.#addKeyboardListeners();
   }
 
   #addKeyboardListeners(){
@@ -23,6 +23,8 @@ class Controls{
         case "ArrowUp":
           this.forward = true;
           break;
+        }
+        console.table(this);
       }
 
       document.onkeyup = (event) => {
