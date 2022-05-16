@@ -17,6 +17,10 @@ class Car{
   //@dev param3 & 4 define how big we want the car to be
 
   update(){
+    this.#move();
+  }
+
+  #move(){
     if(this.controls.forward){
       this.speed += this.acceleration;
     }
