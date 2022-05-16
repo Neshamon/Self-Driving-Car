@@ -5,6 +5,9 @@ class Car{
     this.width = width;
     this.height = height;
 
+    this.speed = 0;
+    this.acceleration = 0.2;
+
     this.controls = new Controls();
   }
   //@dev param1 & 2 define where we want the car to be
@@ -12,11 +15,12 @@ class Car{
 
   update(){
     if(this.controls.foward){
-      this.y -= 2;
+      this.speed += this.acceleration;
     }
     if(this.controls.backward){
-      this.y += 2;
+      this.speed -= this.acceleration;
     }
+    this.y-=this.speed;
   }
 
   draw(ctx){
