@@ -17,9 +17,9 @@ class Car{
   //@dev param1 & 2 define where we want the car to be
   //@dev param3 & 4 define how big we want the car to be
 
-  update(){
+  update(roadBorders){
     this.#move();
-    this.sensor.update();
+    this.sensor.update(roadBorders);
   }
 
   #move(){
