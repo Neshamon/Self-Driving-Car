@@ -1,5 +1,5 @@
 class Car{
-  constructor(x,y,width,height){
+  constructor(x, y, width, height){
     this.x = x;
     this.y = y;
     this.width = width;
@@ -11,6 +11,7 @@ class Car{
     this.friction = 0.05;
     this.angle= 0;
 
+    this.sensor = new Sensor(this);
     this.controls = new Controls();
   }
   //@dev param1 & 2 define where we want the car to be
@@ -18,6 +19,7 @@ class Car{
 
   update(){
     this.#move();
+    this.sensor.update();
   }
 
   #move(){
@@ -81,5 +83,7 @@ class Car{
     ctx.fill();
 
     ctx.restore();
+
+    this.sensor.draw(ctx);
   }
 }
