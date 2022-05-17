@@ -30,21 +30,27 @@ class Road{
     ctx.lineWidth = 5;
     ctx.strokeStyle = "white";
 
-    for(let i = 0; i <= this.laneCount; i++){
+    for(let i = 1; i <= this.laneCount - 1; i++){
       const x = lerp(
         this.left,
         this.right,
         i / this.laneCount
       )
-      if(i > 0 && i < this.laneCount){
-        ctx.setLineDash([20, 20]); //@dev This sets the line to have a line for 20px and then nothing for 20px to create dashes
-      } else {
-        ctx.setLineDash([]); //@dev This function prevents the shoulder of the road's lines from having dashes
-      }
+
+      ctx.setLineDash([20, 20]); //@dev This sets the line to have a line for 20px and then nothing for 20px to create dashes
       ctx.beginPath();
       ctx.moveTo(x, this.top);
       ctx.lineTo(x, this.bottom);
       ctx.stroke();
     }
+
+    ctx.setLineDash([]); //@dev This function prevents the shoulder of the road's lines from having dashes
+    this.borders.forEach((border, i) => {
+      ctx.beginPath()
+      ctx.moveTo(border[0].x, border[0].y);
+      ctx.lineTo(border[1].x, border[1].y);
+      ctx.stroke();
+    }); //@dev This forEach allows allows for the lines to adapt to whatever shape we should choose to give them
+
   }
 }
