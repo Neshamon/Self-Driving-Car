@@ -12,6 +12,11 @@ class Road{
     this.bottom = infinity;
   }
 
+  getLaneCenter(laneIndex){
+    const laneWidth = this.width / this.laneCount;
+    return this.left + laneWidth / 2 + Math.min(laneIndex, this.laneCount - 1) * laneWidth; //@dev Math.min adjustment allows the car to stay on the road if there are too few lanes
+  } //@dev This function allows us to find the offset of a given lane index from the middle of the first lane
+
   draw(ctx){
     ctx.lineWidth = 5;
     ctx.strokeStyle = "white";
