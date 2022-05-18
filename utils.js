@@ -24,11 +24,11 @@ function getIntersection(A,B,C,D){
 }
 
 function polysIntersect(poly1, poly2){
-  for (var i = 0; i < poly1.length; i++) {
-    for (var j = 0; j < poly2.length; j++) {
+  for (let i = 0; i < poly1.length; i++) {
+    for (let j = 0; j < poly2.length; j++) {
       const touch = getIntersection(
         poly1[i],
-        poly1[(i + 1) % poly2.length],
+        poly1[(i + 1) % poly1.length],
         poly2[j],
         poly2[(j + 1) % poly2.length]
       )

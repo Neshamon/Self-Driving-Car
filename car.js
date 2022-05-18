@@ -22,13 +22,13 @@ class Car{
     if(!this.damaged){
       this.#move();
       this.polygon = this.#createPolygon();
-      this.damaged = this.#assessDamage(roadBorders)
+      this.damaged = this.#assessDamage(roadBorders);
     }
     this.sensor.update(roadBorders);
   }
 
   #assessDamage(roadBorders){
-    for (var i = 0; i < roadBorders.length; i++) {
+    for (let i = 0; i < roadBorders.length; i++) {
       if(polysIntersect(this.polygon, roadBorders[i])){
         return true;
       }
@@ -40,6 +40,7 @@ class Car{
     const points = [];
     const rad = Math.hypot(this.width, this.height) / 2;
     const alpha = Math.atan2(this.width, this.height);
+
     points.push({
       x: this.x - Math.sin(this.angle - alpha) * rad,
       y: this.y - Math.cos(this.angle - alpha) * rad
@@ -59,6 +60,8 @@ class Car{
       x: this.x - Math.sin(Math.PI + this.angle + alpha) * rad,
       y: this.y - Math.cos(Math.PI + this.angle + alpha) * rad
     });
+
+    return points
   } //@dev This function defines the four corners of the car
 
   #move(){
@@ -114,7 +117,7 @@ class Car{
     }
     ctx.beginPath();
     ctx.moveTo(this.polygon[0].x, this.polygon[0].y);
-    for (var i = 0; i < this.polygon.length; i++) {
+    for (let i = 1; i < this.polygon.length; i++) {
       ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
     } //@dev This loop draws the polygon connecting all points
     ctx.fill();
