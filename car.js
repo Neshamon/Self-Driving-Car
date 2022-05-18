@@ -20,20 +20,26 @@ class Car{
   //@dev param1 & 2 define where we want the car to be
   //@dev param3 & 4 define how big we want the car to be
 
-  update(roadBorders){
+  update(roadBorders, traffic){
     if(!this.damaged){
       this.#move();
       this.polygon = this.#createPolygon();
-      this.damaged = this.#assessDamage(roadBorders);
+      this.damaged = this.#assessDamage(roadBorders, traffic);
     }
     if(this.sensor){
-      this.sensor.update(roadBorders);
+      this.sensor.update(roadBorders, traffic);
     } //@dev This if statement only updates sensors if a given car has a sensor
   }
 
   #assessDamage(roadBorders){
     for (let i = 0; i < roadBorders.length; i++) {
       if(polysIntersect(this.polygon, roadBorders[i])){
+        return true;
+      }
+    }
+    
+    for (let i = 0; i < traffic.length; i++) {
+      if(polysIntersect(this.polygon, traffic[i].polygon)){
         return true;
       }
     }
