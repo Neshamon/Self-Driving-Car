@@ -7,13 +7,15 @@ class Car{
 
     this.speed = 0;
     this.acceleration = 0.2;
-    this.maxSpeed = 4;
+    this.maxSpeed = maxSpeed;
     this.friction = 0.05;
     this.angle= 0;
     this.damaged = false;
 
-    this.sensor = new Sensor(this);
-    this.controls = new Controls();
+    if(controlType != "DUMMY"){
+      this.sensor = new Sensor(this);
+    } //@dev This if statement allows the self-driving car to have sensors
+    this.controls = new Controls(controlType);
   }
   //@dev param1 & 2 define where we want the car to be
   //@dev param3 & 4 define how big we want the car to be
@@ -24,7 +26,9 @@ class Car{
       this.polygon = this.#createPolygon();
       this.damaged = this.#assessDamage(roadBorders);
     }
-    this.sensor.update(roadBorders);
+    if(this.sensor){
+      this.sensor.update(roadBorders);
+    } //@dev This if statement only updates sensors if a given car has a sensor
   }
 
   #assessDamage(roadBorders){
@@ -121,7 +125,8 @@ class Car{
       ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
     } //@dev This loop draws the polygon connecting all points
     ctx.fill();
-
-    this.sensor.draw(ctx);
+    if(this.sensor){
+      this.sensor.draw(ctx);
+    } //@dev This if statement only draws sensors if a given car has sensors
   }
 }
