@@ -37,7 +37,6 @@ class Car{
       //@dev This map creates nuances in perceiving whether or not it is close to a border,
       // if it is close, the number will be closer to 1 and if far it will be 0
       const outputs = NeuralNetwork.feedForward(offsets, this.brain);
-      console.log(outputs);
 
       if (this.useBrain) {
         this.controls.forward = outputs[0];
