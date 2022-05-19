@@ -14,7 +14,10 @@ class Car{
 
     if(controlType != "DUMMY"){
       this.sensor = new Sensor(this);
-    } //@dev This if statement allows the self-driving car to have sensors
+      this.brain = new NeuralNetwork(
+        [this.sensor.rayCount, 6, 4]
+      )
+    } //@dev This if statement allows the self-driving car to have sensors and a neural network
     this.controls = new Controls(controlType);
   }
   //@dev param1 & 2 define where we want the car to be
@@ -28,6 +31,11 @@ class Car{
     }
     if(this.sensor){
       this.sensor.update(roadBorders, traffic);
+      const offsets = this.sensor.readings.map(s => s == null ? 0 : 1 - s.offset)
+      //@dev This map creates nuances in perceiving whether or not it is close to a border,
+      // if it is close, the number will be closer to 1 and if far it will be 0
+      const outputs = NeuralNetwork.feedForward(offsets, this.brain);
+      console.log(outputs);
     } //@dev This if statement only updates sensors if a given car has a sensor
   }
 
