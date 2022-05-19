@@ -12,6 +12,8 @@ class Car{
     this.angle= 0;
     this.damaged = false;
 
+    this.useBrain = controlType == "AI";
+
     if(controlType != "DUMMY"){
       this.sensor = new Sensor(this);
       this.brain = new NeuralNetwork(
@@ -36,6 +38,13 @@ class Car{
       // if it is close, the number will be closer to 1 and if far it will be 0
       const outputs = NeuralNetwork.feedForward(offsets, this.brain);
       console.log(outputs);
+
+      if (this.useBrain) {
+        this.controls.forward = outputs[0];
+        this.controls.left = outputs[1];
+        this.controls.right = outputs[2];
+        this.controls.backward = outputs[3];
+      }
     } //@dev This if statement only updates sensors if a given car has a sensor
   }
 
