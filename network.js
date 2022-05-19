@@ -22,6 +22,29 @@ class NeuralNetwork{
 
     return outputs; //which is then returned as a final output here.
   }
+
+  static mutate(network, amount = 1){
+    network.levels.forEach((level) => {
+      for (let i = 0; i < level.biases.length; i++) {
+        level.biases[i] = lerp(
+          level.biases[i],
+          Math.random() * 2 - 1,
+          amount
+        )
+      }
+
+      for (let i = 0; i < level.weights.length; i++) {
+       for (let j = 0; j < level.weights[i].length; j++) {
+         level.weights[i][j] = lerp(
+           level.weights[i][j],
+           Math.random() * 2 - 1,
+           amount
+         )
+       }
+      }
+    });
+
+  } //@dev The mutate method takes a given neural network and mutates its values by the given amount as a percentage
 } //@dev The outputs determine what direction the car should go in.
 
 /*
