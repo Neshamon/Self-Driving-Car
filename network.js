@@ -1,7 +1,7 @@
 class NeuralNetwork{
   constructor(neuronCounts){
     this.levels = [];
-    for (let i = 0; i < neuronCounts.length; i++) {
+    for (let i = 0; i < neuronCounts.length - 1; i++) {
       this.levels.push(new Level(
         neuronCounts[i], neuronCounts[i + 1]
       ));
@@ -14,7 +14,7 @@ class NeuralNetwork{
     ); //@dev This function causes the first level of the network to produce its outputs
 
     for (let i = 1; i < network.levels.length; i++) {
-      let outputs = Level.feedForward(
+        outputs = Level.feedForward(
         outputs, network.levels[i]
       );
     } //@dev This loop takes the output of the previous level and inserts it as an
@@ -38,7 +38,7 @@ class Level{
     this.biases = new Array(outputCount);
 
     this.weights = [];
-    for (let i = 0; i < inputCount.length; i++) {
+    for (let i = 0; i < inputCount; i++) {
       this.weights[i] = new Array(outputCount);
     }
 
