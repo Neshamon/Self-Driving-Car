@@ -3,6 +3,7 @@ const networkCanvas = document.getElementById("networkCanvas");
 carCanvas.width = 200;
 networkCanvas.width = 300;
 
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const carCtx = carCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
@@ -25,10 +26,8 @@ if(localStorage.getItem("bestBrain")){
 
 }
 
-const traffic = [
-  new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 3),
-  new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 3),
-  new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 3)
+let traffic = [
+  new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 3)
 ];
 
 animate();
@@ -39,6 +38,10 @@ function save() {
 
 function discard() {
   localStorage.removeItem("bestBrain");
+}
+
+function addTraffic() {
+  traffic.push(new Car(road.getLaneCenter(random(0, 2)), bestCar.y - 700, 30, 50, "DUMMY", 3))
 }
 
 function generateCars(N){
