@@ -41,7 +41,7 @@ function discard() {
 }
 
 function addTraffic() {
-  traffic.push(new Car(road.getLaneCenter(random(0, 2)), bestCar.y - 700, 30, 50, "DUMMY", 3))
+  traffic.push(new Car(road.getLaneCenter(random(0, 2)), -bestCar.y - 700, 30, 50, "DUMMY", 3))
 }
 
 function generateCars(N){
@@ -70,7 +70,7 @@ function animate(time){
   networkCanvas.height = window.innerHeight;
 
   carCtx.save();
-  carCtx.translate(0, - bestCar.y + carCanvas.height * 0.7); //@dev Locks the view above the car
+  carCtx.translate(0, -bestCar.y + carCanvas.height * 0.7); //@dev Locks the view above the car
 
   road.draw(carCtx);
   for (let i = 0; i < traffic.length; i++) {
